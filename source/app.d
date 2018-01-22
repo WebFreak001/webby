@@ -30,6 +30,17 @@ class BasicPlugin : Plugin
 	{
 		this.log.infof("MessageCreate: %s", event.message.content);
 		{
+			if (event.message.content.toLower.startsWith("send nudes"))
+			{
+				auto ret = findRandomImage("dunes", true);
+				if (ret != Response.Item.init)
+					event.message.reply(
+							"<@!" ~ event.message.author.id.to!string
+							~ "> but don't share them with anyone! " ~ ret.link);
+				return;
+			}
+		}
+		{
 			auto match = event.message.content.matchFirst(makeMe);
 			if (match)
 			{
@@ -46,6 +57,7 @@ class BasicPlugin : Plugin
 				}
 				else
 					event.message.reply("<@!" ~ event.message.author.id.to!string ~ "> permission denied");
+				return;
 			}
 		}
 	}
