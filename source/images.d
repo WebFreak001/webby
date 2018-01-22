@@ -38,7 +38,8 @@ Response.Item findRandomImage(string query, bool safe)
 	auto cache = query in imageCache;
 	if (cache && Clock.currTime(UTC()) - cache.performedAt < 16.hours)
 		return cache.res.items.length ? cache.res.items[uniform(0, $)] : Response.Item.init;
-	imageCache[query] = ImageCache(true);
+	string cacheKey = (safe ? "s" : "u") ~ query;
+	imageCache[cacheKey] = ImageCache(true);
 	string url = "https://www.googleapis.com/customsearch/v1?cx=" ~ config.search
 		.id.encodeComponent ~ "&key=" ~ config.search.key.encodeComponent ~ (safe
 				? "&safe=high" : "") ~ "&searchType=image&q=" ~ query.encodeComponent;
@@ -54,7 +55,7 @@ Response.Item findRandomImage(string query, bool safe)
 		catch (Exception e)
 		{
 		}
-		imageCache[query] = ImageCache(false, res, Clock.currTime(UTC()));
+		imageCache[cacheKey] = ImageCache(false, res, Clock.currTime(UTC()));
 		ret = res.items.length ? res.items[uniform(0, $)] : Response.Item.init;
 	});
 	return ret;
