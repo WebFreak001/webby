@@ -35,10 +35,10 @@ struct Response
 Response.Item findRandomImage(string query, bool safe)
 {
 	query = query.strip.toLower;
-	auto cache = query in imageCache;
+	string cacheKey = (safe ? "s" : "u") ~ query;
+	auto cache = cacheKey in imageCache;
 	if (cache && Clock.currTime(UTC()) - cache.performedAt < 16.hours)
 		return cache.res.items.length ? cache.res.items[uniform(0, $)] : Response.Item.init;
-	string cacheKey = (safe ? "s" : "u") ~ query;
 	imageCache[cacheKey] = ImageCache(true);
 	string url = "https://www.googleapis.com/customsearch/v1?cx=" ~ config.search
 		.id.encodeComponent ~ "&key=" ~ config.search.key.encodeComponent ~ (safe
