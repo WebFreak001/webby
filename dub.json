@@ -1,0 +1,9 @@
+{
+	"name": "webby-discord",
+	"dependencies": {
+		"dscord": "~>0.0.11"
+	},
+	"subConfigurations": {
+		"dscord": "dscord-linux-dynamic"
+	}
+}

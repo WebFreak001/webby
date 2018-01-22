@@ -1,0 +1,1 @@
+copy config.json.template to config.json and enter google custom search api details (https://cse.google.com/all)
