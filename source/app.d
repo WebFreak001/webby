@@ -19,6 +19,12 @@ import images;
 static immutable makeMe = ctRegex!(`^(sudo\s+)?(make|bake|create|order|give)\s+(me|<@!?\d+>)\s+(?:(an?|another|more|many|the|some|such|those|them|these)\s+)?(lewd\s+)?(.*)`,
 		"i");
 
+string convertBold(string s)
+{
+	import std.xml : decode; // it comes from google, so I assume it's proper HTML
+	return s.replace("<b>", "**").replace("</b>", "**").decode;
+}
+
 class BasicPlugin : Plugin
 {
 	this()
@@ -53,7 +59,7 @@ class BasicPlugin : Plugin
 					if (ret == Response.Item.init)
 						event.message.reply(to ~ " sorry to disappoint you, but I can't do that right now");
 					else
-						event.message.reply(to ~ " here you go: " ~ ret.link ~ " (" ~ ret.htmlTitle ~ ")");
+						event.message.reply(to ~ " here you go: " ~ ret.link ~ " (" ~ ret.htmlTitle.convertBold ~ ")");
 				}
 				else
 					event.message.reply("<@!" ~ event.message.author.id.to!string ~ "> permission denied");
