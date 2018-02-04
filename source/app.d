@@ -51,7 +51,7 @@ class BasicPlugin : Plugin
 			if (match)
 			{
 				string to = "<@!" ~ event.message.author.id.to!string ~ ">";
-				if (match[3].length && match[3] != "me")
+				if (match[3].length && match[3].toLower != "me")
 					to = match[3];
 				if (match[1].length)
 				{
@@ -72,6 +72,11 @@ class BasicPlugin : Plugin
 	void onKMS(CommandEvent event)
 	{
 		event.msg.reply("<:kms:403304933195120640>");
+	}
+
+	@Command("purge") @CommandLevel(Level.ADMIN)
+	void onPurge(CommandEvent event)
+	{
 	}
 }
 
