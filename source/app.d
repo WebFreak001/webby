@@ -16,7 +16,7 @@ import etc.linux.memoryerror;
 
 import images;
 
-static immutable makeMe = ctRegex!(`^(sudo\s+)?(make|bake|create|order|give)\s+(me|<@!?\d+>)\s+(?:(an?|another|more|many|the|some|such|those|them|these)\s+)?(lewd\s+)?(.*)`,
+static immutable makeMe = ctRegex!(`^(sudo\s+)?(make|bake|create|order|give|get)\s+(me|<@!?\d+>)\s+(?:(an?|another|more|many|the|some|such|those|them|these)\s+)?(lewd\s+)?(.*)`,
 		"i");
 
 string convertBold(string s)
